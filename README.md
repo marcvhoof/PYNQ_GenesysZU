@@ -59,6 +59,7 @@ mkdir -p build/gcc-mb/.build/tarballs
 wget -P /workspace/PYNQ_GenesysZU/sdbuild/build/gcc-mb/.build/tarballs/ http://mirror.sobukus.de/files/src/isl/isl-0.20.tar.gz
 wget -P /workspace/PYNQ_GenesysZU/sdbuild/build/gcc-mb/.build/tarballs/ http://mirror.sobukus.de/files/src/isl/isl-0.20.tar.xz
 wget -P /workspace/PYNQ_GenesysZU/sdbuild/build/gcc-mb/.build/tarballs/ https://github.com/libexpat/libexpat/releases/download/R_2_4_1/expat-2.4.1.tar.gz
+wget -P /workspace/PYNQ_GenesysZU/sdbuild/build/gcc-mb/.build/tarballs/ https://github.com/libexpat/libexpat/releases/download/R_2_4_1/expat-2.4.1.tar.bz2
 ```
 
 ## Start making
