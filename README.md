@@ -66,7 +66,7 @@ make
 ```
 
 ## A few things that might be relevant to you
-- I use make -j4; however that does give some errors in need of a restart of make. I do think it is a bit faster. 
+- make -j is not viable
 - Only Pynq-Z2 is necessary for building the toolchain. It is also necessary for other boards. So leave it in. 
 - If you need the HDMI license, make sure you enable it beforehand - as it stops the building process.
 
