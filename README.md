@@ -18,18 +18,19 @@ First off, realise compiling is going to take a long time (can be days, dependin
 
 
 ## Installing Vagrant and Virtualbox on a recent Ubuntu
-**sudo apt-get install vagrant virtualbox**
-**vagrant plugin install vagrant-vbguest**
-**mkdir** <PYNQ repository>**
-**cd <PYNQ repository>**
-**git clone https://github.com/marcvhoof/PYNQ_GenesysZU**
-**cd PYNQ_GenesysZU**
-**vagrant up bionic**
-
+```
+sudo apt-get install vagrant virtualbox
+vagrant plugin install vagrant-vbguest
+mkdir <PYNQ repository>
+cd <PYNQ repository>
+git clone https://github.com/marcvhoof/PYNQ_GenesysZU
+cd PYNQ_GenesysZU
+vagrant up bionic
+```
 Wait until vagrant is completely ready with executing scripts, ignore the virtual box in the mean time. When 'bionic: Running: inline script' is reached, close the virtual box screen (by shutting down) and: 
-
-**vagrant reload bionic**
-
+```
+vagrant reload bionic
+```
 Login with ' vagrant'  as the password. A few more scripted actions will start. Wait untill 'bionic: flag to force provisioning. Provisioners marked to run always will still run.' is reached. 
 
 From this point on, start using the reload command to reboot the machine - when necessary.
@@ -42,25 +43,29 @@ I recommend downloading Petalinux seperate and the webinstaller for Vitis 2020.2
 
 ## Within the VM
 Clone the repository again in workspace
-**cd /workspace**
-**git clone https://github.com/marcvhoof/PYNQ_GenesysZU**
-**cd PYNQ_GenesysZU**
-**source /workspace/tools/Xilinx/Vitis/2020.2/settings64.sh**
-**source /workspace/tools/Xilinx/Petalinux/settings.sh**
-**petalinux-util --webtalk off**
-**cd sdbuild**
-
+```
+cd /workspace
+git clone https://github.com/marcvhoof/PYNQ_GenesysZU
+cd PYNQ_GenesysZU
+source /workspace/tools/Xilinx/Vitis/2020.2/settings64.sh
+source /workspace/tools/Xilinx/Petalinux/settings.sh
+petalinux-util --webtalk off
+cd sdbuild
+```
 ## Fix the broken links
-**mkdir -p build/gcc-mb/.build/tarballs**
-**wget -P /workspace/PYNQ_GenesysZU/sdbuild/build/gcc-mb/.build/tarballs/ http://mirror.sobukus.de/files/src/isl/isl-0.20.tar.gz**
-**wget -P /workspace/PYNQ_GenesysZU/sdbuild/build/gcc-mb/.build/tarballs/ http://mirror.sobukus.de/files/src/isl/isl-0.20.tar.xz**
-**wget -P /workspace/PYNQ_GenesysZU/sdbuild/build/gcc-mb/.build/tarballs/ https://github.com/libexpat/libexpat/releases/download/R_2_1_0/expat-2.1.0.tar.gz**
+```
+mkdir -p build/gcc-mb/.build/tarballs
+wget -P /workspace/PYNQ_GenesysZU/sdbuild/build/gcc-mb/.build/tarballs/ http://mirror.sobukus.de/files/src/isl/isl-0.20.tar.gz
+wget -P /workspace/PYNQ_GenesysZU/sdbuild/build/gcc-mb/.build/tarballs/ http://mirror.sobukus.de/files/src/isl/isl-0.20.tar.xz
+wget -P /workspace/PYNQ_GenesysZU/sdbuild/build/gcc-mb/.build/tarballs/ https://github.com/libexpat/libexpat/releases/download/R_2_1_0/expat-2.1.0.tar.gz
+```
 
 ## Start making
-**make**
+```
+make
+```
 
-
-[A few things that might be relevant to you]
+## A few things that might be relevant to you
 - I use make -j4; however that does give some errors in need of a restart of make. I do think it is a bit faster. 
 - Only Pynq-Z2 is necessary for building the toolchain. It is also necessary for other boards. So leave it in. 
 - If you need the HDMI license, make sure you enable it beforehand - as it stops the building process.
