@@ -66,6 +66,7 @@ wget -P /workspace/PYNQ_GenesysZU/sdbuild/build/gcc-mb/.build/tarballs/ https://
 ```
 make
 ```
+Once it fails due to download errors because of the broken tar links, just clean the ' gcc-mb' manually by deleting all other files and directories under 'PYNQ_GenesysZU/sdbuild/build/gcc-mb' until only the '.build' directory is left over and restart make. Note that .build is hidden, so enable showing hidden files.  
 
 ## A few things that might be relevant to you
 - make -j is not viable
