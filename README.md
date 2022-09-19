@@ -13,54 +13,57 @@ PYNQ users can now create high performance embedded applications with
 
 See the <a href="http://www.pynq.io/" target="_blank">PYNQ webpage</a> for an overview of the project, and find <a href="http://pynq.readthedocs.io" target="_blank">documentation on ReadTheDocs</a> to get started. 
 
-## Precompiled Image
+## Before  you start
+First off, realise compiling is going to take a long time (can be days, depending on your setup). The Virtualbox setup is very slow. It sometimes randomly locks up; needing a restart. However - it does work with the fixes applied in this fork. Building these images with new(er) tools, runs you into a lot of compatibility issues - I tried.  
 
-The project currently supports <a href="http://www.pynq.io/board.html" target="_blank">multiple boards</a>. 
 
-You can download a precompiled image, write the image to a micro SD card, and boot the board from the micro SD card. 
+## Installing Vagrant and Virtualbox on a recent Ubuntu
+**sudo apt-get install vagrant virtualbox**
+**vagrant plugin install vagrant-vbguest**
+**mkdir <PYNQ repository>**
+**cd <PYNQ repository>**
+**git clone https://github.com/marcvhoof/PYNQ_GenesysZU**
+**cd PYNQ_GenesysZU**
+**vagrant up bionic**
 
-## Quick Start
+Wait until vagrant is completely ready with executing scripts, ignore the virtual box in the mean time. When 'bionic: Running: inline script' is reached, close the virtual box screen (by shutting down) and: 
 
-See the <a href="http://pynq.readthedocs.io/en/latest/getting_started.html" target="_blank">Quickstart guide</a> for details on writing the image to an SD card, and getting started with a PYNQ-enabled board.
+**vagrant reload bionic**
 
-## Python Source Code
+Login with ' vagrant'  as the password. A few more scripted actions will start. Wait untill 'bionic: flag to force provisioning. Provisioners marked to run always will still run.' is reached. 
 
-All Python code for the `pynq` package can be found in the `/pynq` folder. This folder can be found on the board after the board boots with the precompiled image.
+From this point on, start using the reload command to reboot the machine - when necessary.
 
-To update your PYNQ SD card to the latest `pynq` package, you can run the following command from a terminal connected to your board:
+## Some advice
+I then modified the virtual box, by closing the machine and starting VirtualBox. I changed the display manager to VMSVGA and increased the RAM to 32GB (on my 128GB system) and selected half of my physical cores. If you are limited to 8GB, I would advise you to install a swap file (instructions not provided here). Good to know: 1) you can change the screen size and resolution in Ubuntu itself simply by going to Settings, searching for 'Displays'. 2) Enabling 'Shared Clipboard' in Virtualbox is quite convenient for copy/paste across machines, 3) sudo apt-get install gnome-system-monitor helps you conveniently track issues with memory in the VM.  
 
-```console
-sudo pip3 install --upgrade --upgrade-strategy only-if-needed pynq
-```
+## Download Petalinux 2020.2 and Vitis 2020.2
+I recommend downloading Petalinux seperate and the webinstaller for Vitis 2020.2. Create a directory under /workspace, e.g. /tools/Xilinx/Petalinux. Petalinux is finished downloading earlier - so start installing that one first. Install Vitis. I only selected the MPSOC ultrascale+ boards. I also left in DocNav. Install the y2k22_patch-1.2.zip fix, by unzipping it in the /workspace/tools/Xilinx directory, and running "python3 '/workspace/tools/Xilinx/y2k22_patch/patch.py'" in /workspace/tools/Xilinx.
 
-The `--upgrade-strategy only-if-needed` option will upgrade dependencies only in case they do not satisfy the requirements, which will speed-up the installation process and also avoid possible upgrade errors.
+##Within the VM
+Clone the repository again in workspace
+**cd /workspace**
+**git clone https://github.com/marcvhoof/PYNQ_GenesysZU**
+**cd PYNQ_GenesysZU**
+**source /workspace/tools/Xilinx/Vitis/2020.2/settings64.sh**
+**source /workspace/tools/Xilinx/Petalinux/settings.sh**
+**petalinux-util --webtalk off**
+**cd sdbuild**
 
-SDK software projects and Python-C source codes are also stored along with the Python source code. After installing the `pynq` package, the compiled target files will be saved automatically into the `pynq` package.
+##Fix the broken links
+**mkdir -p build/gcc-mb/.build/tarballs**
+**wget -P /workspace/PYNQ_GenesysZU/sdbuild/build/gcc-mb/.build/tarballs/ http://mirror.sobukus.de/files/src/isl/isl-0.20.tar.gz**
+**wget -P /workspace/PYNQ_GenesysZU/sdbuild/build/gcc-mb/.build/tarballs/ http://mirror.sobukus.de/files/src/isl/isl-0.20.tar.xz**
+**wget -P /workspace/PYNQ_GenesysZU/sdbuild/build/gcc-mb/.build/tarballs/ https://github.com/libexpat/libexpat/releases/download/R_2_1_0/expat-2.1.0.tar.gz**
 
-## Board Files and Overlays
+##Start making
+**make**
 
-All board related files including Vivado projects, bitstreams, and example notebooks, can be found in the `/boards` folder.
 
-In Linux, you can rebuild the overlay by running *make* in the corresponding overlay folder (e.g. `/boards/Pynq-Z1/base`). In Windows, you need to source the appropriate tcl files in the corresponding overlay folder.
-
-## Alveo support
-
-Starting from PYNQ version `2.5.1`, Alveo support has also been introduced. It is now possible to use PYNQ to tap into the potential of hardware acceleration in the data center space.
-
-To get PYNQ on an Alveo-enabled system, simply install it through PIP:
-
-```console
-pip install pynq
-```
-
-For Alveo cards, PYNQ currently requires a <a href="https://github.com/Xilinx/XRT" target="_blank">Xilinx Runtime (XRT)</a> version above or equal to `2.3` to be installed in the system. In terms of Operating System, any XRT-supported version of either RedHat/CentOS or Ubuntu can be used.
-
-For more information, please see the Alveo <a href="https://pynq.readthedocs.io/en/latest/getting_started/alveo_getting_started.html" target="_blank">getting started guide</a>.
-
-## Contribute
-
-Contributions to this repository are welcomed. Please refer to <a href="https://github.com/Xilinx/PYNQ/blob/master/CONTRIBUTING.md" target="_blank">CONTRIBUTING.md</a> 
-for how to improve PYNQ.
+[A few things that might be relevant to you]
+- I use make -j4; however that does give some errors in need of a restart of make. I do think it is a bit faster. 
+- Only Pynq-Z2 is necessary for building the toolchain. It is also necessary for other boards. So leave it in. 
+- If you need the HDMI license, make sure you enable it beforehand - as it stops the building process.
 
 ## Support
 
