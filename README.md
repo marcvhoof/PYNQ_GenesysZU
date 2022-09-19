@@ -20,7 +20,7 @@ First off, realise compiling is going to take a long time (can be days, dependin
 ## Installing Vagrant and Virtualbox on a recent Ubuntu
 **sudo apt-get install vagrant virtualbox**
 **vagrant plugin install vagrant-vbguest**
-**mkdir <PYNQ repository>**
+**mkdir** <PYNQ repository>**
 **cd <PYNQ repository>**
 **git clone https://github.com/marcvhoof/PYNQ_GenesysZU**
 **cd PYNQ_GenesysZU**
@@ -40,7 +40,7 @@ I then modified the virtual box, by closing the machine and starting VirtualBox.
 ## Download Petalinux 2020.2 and Vitis 2020.2
 I recommend downloading Petalinux seperate and the webinstaller for Vitis 2020.2. Create a directory under /workspace, e.g. /tools/Xilinx/Petalinux. Petalinux is finished downloading earlier - so start installing that one first. Install Vitis. I only selected the MPSOC ultrascale+ boards. I also left in DocNav. Install the y2k22_patch-1.2.zip fix, by unzipping it in the /workspace/tools/Xilinx directory, and running "python3 '/workspace/tools/Xilinx/y2k22_patch/patch.py'" in /workspace/tools/Xilinx.
 
-##Within the VM
+## Within the VM
 Clone the repository again in workspace
 **cd /workspace**
 **git clone https://github.com/marcvhoof/PYNQ_GenesysZU**
@@ -50,13 +50,13 @@ Clone the repository again in workspace
 **petalinux-util --webtalk off**
 **cd sdbuild**
 
-##Fix the broken links
+## Fix the broken links
 **mkdir -p build/gcc-mb/.build/tarballs**
 **wget -P /workspace/PYNQ_GenesysZU/sdbuild/build/gcc-mb/.build/tarballs/ http://mirror.sobukus.de/files/src/isl/isl-0.20.tar.gz**
 **wget -P /workspace/PYNQ_GenesysZU/sdbuild/build/gcc-mb/.build/tarballs/ http://mirror.sobukus.de/files/src/isl/isl-0.20.tar.xz**
 **wget -P /workspace/PYNQ_GenesysZU/sdbuild/build/gcc-mb/.build/tarballs/ https://github.com/libexpat/libexpat/releases/download/R_2_1_0/expat-2.1.0.tar.gz**
 
-##Start making
+## Start making
 **make**
 
 
