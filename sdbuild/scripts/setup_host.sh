@@ -17,6 +17,9 @@ else
     exit 1
 fi
 
+sudo dpkg --add-architecture i386
+sudo apt-get update
+
 read -d '' PACKAGES <<EOT
 bc
 libtool-bin
