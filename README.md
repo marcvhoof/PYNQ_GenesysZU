@@ -36,7 +36,7 @@ Login with ' vagrant'  as the password. A few more scripted actions will start. 
 From this point on, start using the reload command to reboot the machine - when necessary.
 
 ## Some advice
-I then modified the virtual box, by closing the machine and starting VirtualBox. I changed the display manager to VMSVGA and increased the RAM to 32GB (on my 128GB system) and selected half of my physical cores. If you are limited to 8GB, I would advise you to install a swap file (instructions not provided here). Good to know: 1) you can change the screen size and resolution in Ubuntu itself simply by going to Settings, searching for 'Displays'. 2) Enabling 'Shared Clipboard' in Virtualbox is quite convenient for copy/paste across machines, 3) sudo apt-get install gnome-system-monitor helps you conveniently track issues with memory in the VM.  
+I then modified the virtual box, by closing the machine and starting VirtualBox. I changed the display manager to VMSVGA and selected half (4) of my physical cores. Good to know: 1) you can change the screen size and resolution in Ubuntu itself simply by going to Settings, searching for 'Displays'. 2) Enabling 'Shared Clipboard' in Virtualbox is quite convenient for copy/paste across machines, 3) sudo apt-get install gnome-system-monitor helps you conveniently track issues with memory in the VM. 
 
 ## Download Petalinux 2020.2 and Vitis 2020.2
 I recommend downloading Petalinux seperate and the webinstaller for Vitis 2020.2. Create a directory under /workspace, e.g. /tools/Xilinx/Petalinux. Petalinux is finished downloading earlier - so start installing that one first. Install Vitis. I only selected the MPSOC ultrascale+ boards. I also left in DocNav. Install the y2k22_patch-1.2.zip fix, by unzipping it in the /workspace/tools/Xilinx directory, and running "python3 '/workspace/tools/Xilinx/y2k22_patch/patch.py'" in /workspace/tools/Xilinx.
@@ -47,6 +47,7 @@ Clone the repository again in workspace
 cd /workspace
 git clone https://github.com/marcvhoof/PYNQ_GenesysZU
 cd PYNQ_GenesysZU
+export PATH="/opt/crosstool-ng/bin:/opt/qemu/bin:$PATH"
 source /workspace/tools/Xilinx/Vitis/2020.2/settings64.sh
 source /workspace/tools/Xilinx/Petalinux/settings.sh
 petalinux-util --webtalk off
@@ -69,6 +70,8 @@ make
 - make -j is not viable
 - Only Pynq-Z2 is necessary for building the toolchain. It is also necessary for other boards. So leave it in. 
 - If you need the HDMI license, make sure you enable it beforehand - as it stops the building process.
+- I use sudo make clean to clean
+- Somehow, sometimes the wrong qemu is used, giving a variety of errors (e.g. recipe for target 'qemu_check_arm' failed / recipe for target ‘checkenv’ failed). This fixes it: export PATH="/opt/crosstool-ng/bin:/opt/qemu/bin:$PATH". 
 
 ## Support
 
