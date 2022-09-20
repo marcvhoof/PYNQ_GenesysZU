@@ -40,7 +40,7 @@ From this point on, start using the reload command to reboot the machine - when 
 - gnome-system-monitor (```sudo apt-get install gnome-system-monitor```) helps you conveniently track issues with memory/swap file in the VM. 
 
 ## Download Petalinux 2020.2 and Vitis 2020.2
-I recommend downloading Petalinux seperate and the webinstaller for Vitis 2020.2. Create a directory under /workspace, e.g. /tools/Xilinx/Petalinux. Petalinux is finished downloading earlier - so start installing that one first. Install Vitis. I only selected the MPSOC ultrascale+ boards. I also left in DocNav. Install the y2k22_patch-1.2.zip fix, by unzipping it in the /workspace/tools/Xilinx directory, and running "python3 '/workspace/tools/Xilinx/y2k22_patch/patch.py'" in /workspace/tools/Xilinx.
+I recommend downloading Petalinux seperate and the webinstaller for Vitis 2020.2. Create a directory under /workspace, e.g. /tools/Xilinx/Petalinux. Petalinux is finished downloading earlier - so start installing that one first. Select all Vitis/Vivado/HLS variants. For chip/board selection, I only selected the MPSOC ultrascale+ boards. I also left in DocNav. Install the y2k22_patch-1.2.zip fix, by unzipping it in the /workspace/tools/Xilinx directory, and running ```python3 '/workspace/tools/Xilinx/y2k22_patch/patch.py'``` in /workspace/tools/Xilinx.
 
 ## Within the VM
 ### Ensure that the swap file works. 
