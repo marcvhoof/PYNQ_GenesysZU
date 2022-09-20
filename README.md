@@ -14,8 +14,7 @@ PYNQ users can now create high performance embedded applications with
 See the <a href="http://www.pynq.io/" target="_blank">PYNQ webpage</a> for an overview of the project, and find <a href="http://pynq.readthedocs.io" target="_blank">documentation on ReadTheDocs</a> to get started. 
 
 ## Before  you start
-First off, realise compiling is going to take a long time (can be days, depending on your setup). The Virtualbox setup is very slow. It sometimes randomly locks up; needing a restart. However - it does work with the fixes applied in this fork. Building these images with new(er) tools, runs you into a lot of compatibility issues - I tried.  
-
+First off, realise compiling is going to take a long time (can be days, depending on your setup). The Virtualbox setup is very slow. It sometimes randomly locks up; needing a restart. However - it does work with the fixes applied in this fork. Building these images with new(er) tools, runs you into a lot of compatibility issues - I tried. I have modified the Vagrant file to include more memory (16G), use 4 cores and have a bigger workspace drive (180GB). If you look at the vagrant file yourself; you can easily change the parameters; 8G of RAM without a SWAP file is insufficient! Therefor, a swapon file is created by default (4G). 
 
 ## Installing Vagrant and Virtualbox on a recent Ubuntu
 ```
@@ -36,21 +35,25 @@ Login with ' vagrant'  as the password. A few more scripted actions will start. 
 From this point on, start using the reload command to reboot the machine - when necessary.
 
 ## Some advice
-I then modified the virtual box, by closing the machine and starting VirtualBox. I changed the display manager to VMSVGA and selected half (4) of my physical cores. Good to know: 1) you can change the screen size and resolution in Ubuntu itself simply by going to Settings, searching for 'Displays'. 2) Enabling 'Shared Clipboard' in Virtualbox is quite convenient for copy/paste across machines, 3) sudo apt-get install gnome-system-monitor helps you conveniently track issues with memory in the VM. 
-
-## Use a swap file for 8GB of RAM
-```
-sudo fallocate -l 8G /swapfile
-sudo chmod 600 /swapfile
-sudo mkswap /swapfile
-sudo swapon /swapfile
-```
+- You can change the screen size and resolution in Ubuntu itself simply by going to Settings, searching for 'Displays'. 
+- Enabling 'Shared Clipboard' in Virtualbox is quite convenient for copy/paste across machines. The system reboots to make it possible.
+- gnome-system-monitor (```sudo apt-get install gnome-system-monitor```) helps you conveniently track issues with memory/swap file in the VM. 
 
 ## Download Petalinux 2020.2 and Vitis 2020.2
 I recommend downloading Petalinux seperate and the webinstaller for Vitis 2020.2. Create a directory under /workspace, e.g. /tools/Xilinx/Petalinux. Petalinux is finished downloading earlier - so start installing that one first. Install Vitis. I only selected the MPSOC ultrascale+ boards. I also left in DocNav. Install the y2k22_patch-1.2.zip fix, by unzipping it in the /workspace/tools/Xilinx directory, and running "python3 '/workspace/tools/Xilinx/y2k22_patch/patch.py'" in /workspace/tools/Xilinx.
 
 ## Within the VM
-Clone the repository again in workspace
+### Ensure that the swap file works. 
+You can see it in the gnome-system-monitor if it already works. If not, you can manually enable it by running
+```
+sudo swapon /swapfile 
+```
+and add it automatically to boot up by 
+```
+sudo echo "/swapfile swap swap defaults 0 0" | sudo tee -a /etc/fstab
+```
+
+### Clone the repository again in workspace
 ```
 cd /workspace
 git clone https://github.com/marcvhoof/PYNQ_GenesysZU
