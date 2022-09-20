@@ -14,7 +14,7 @@ PYNQ users can now create high performance embedded applications with
 See the <a href="http://www.pynq.io/" target="_blank">PYNQ webpage</a> for an overview of the project, and find <a href="http://pynq.readthedocs.io" target="_blank">documentation on ReadTheDocs</a> to get started. 
 
 ## Before  you start
-First off, realise compiling is going to take a long time (can be days, depending on your setup). The Virtualbox setup is very slow. It sometimes randomly locks up; needing a restart. However - it does work with the fixes applied in this fork. Building these images with new(er) tools, runs you into a lot of compatibility issues - I tried. I have modified the Vagrant file to include more memory (16G), use 4 cores and have a bigger workspace drive (180GB). Also a swapon file is created by default (4G). 
+First off, realise compiling is going to take a long time (can be days, depending on your setup). The Virtualbox setup is very slow. It sometimes randomly locks up; needing a restart. However - it does work with the fixes applied in this fork. Building these images with new(er) tools, runs you into a lot of compatibility issues - I tried. I have modified the Vagrant file to include more memory (16G), use 4 cores and have a bigger workspace drive (180GB). If you look at the vagrant file yourself; you can easily change the parameters; 8G of RAM without a SWAP file is insufficient! Therefor, a swapon file is created by default (4G). 
 
 ## Installing Vagrant and Virtualbox on a recent Ubuntu
 ```
