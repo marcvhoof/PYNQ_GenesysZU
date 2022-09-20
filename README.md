@@ -35,7 +35,6 @@ Login with ' vagrant'  as the password. A few more scripted actions will start. 
 From this point on, start using the reload command to reboot the machine - when necessary.
 
 ## Some advice
-Good to know: 
 - You can change the screen size and resolution in Ubuntu itself simply by going to Settings, searching for 'Displays'. 
 - Enabling 'Shared Clipboard' in Virtualbox is quite convenient for copy/paste across machines. The system reboots to make it possible.
 - gnome-system-monitor (```sudo apt-get install gnome-system-monitor```) helps you conveniently track issues with memory/swap file in the VM. 
