@@ -12,15 +12,17 @@ Vagrant.configure("2") do |config|
 		bionic.vm.provider "virtualbox" do |vb|
 			vb.gui = true
 			vb.name = "pynq_ubuntu_18_04"
-			vb.memory = "8192"
+			vb.memory = "16384"
+			vb.customize ["modifyvm", :id, "--cpus", 4]
 			vb.customize ["modifyvm", :id, "--vram", "128"]
+			vb.customize ['modifyvm', :id, '--graphicscontroller', 'vmsvga']
 			vb.customize ["modifyvm", :id, "--accelerate3d", "on"]
 			disk_image = File.join(File.dirname(File.expand_path(__FILE__)), 
 				'ubuntu_18_04.vdi')
 			unless File.exist?(disk_image)
 			vb.customize ['createhd', 
 						'--filename', disk_image, 
-						'--size', 160 * 1024]
+						'--size', 180 * 1024]
 			end
 			vb.customize ['storageattach', :id, 
 						  '--storagectl', 'SCSI', 
@@ -55,6 +57,21 @@ Vagrant.configure("2") do |config|
 
 		bionic.vm.provision "shell", 
 			inline: "apt-get install -y --force-yes ubuntu-desktop"
+
+		bionic.vm.provision "shell", 
+			inline: "sudo fallocate -l 4G /swapfile"
+
+		bionic.vm.provision "shell", 
+			inline: "sudo chmod 600 /swapfile"
+
+		bionic.vm.provision "shell", 
+			inline: "sudo mkswap /swapfile"
+
+		bionic.vm.provision "shell", 
+			inline: "sudo swapon /swapfile"
+
+		bionic.vm.provision "shell", 
+			inline: "sudo echo \"/swapfile swap swap defaults 0 0\" | sudo tee -a /etc/fstab"
 
 		bionic.vm.provision "shell", inline: <<-SHELL
 			cat /root/.profile | grep PATH >> /home/vagrant/.profile
