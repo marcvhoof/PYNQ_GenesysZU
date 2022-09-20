@@ -38,6 +38,7 @@ From this point on, start using the reload command to reboot the machine - when 
 - You can change the screen size and resolution in Ubuntu itself simply by going to Settings, searching for 'Displays'. 
 - Enabling 'Shared Clipboard' in Virtualbox is quite convenient for copy/paste across machines. The system reboots to make it possible.
 - gnome-system-monitor (```sudo apt-get install gnome-system-monitor```) helps you conveniently track issues with memory/swap file in the VM. 
+- Virtualbox allows you to take snapshots. I recommend you do so after your have managed to install all the prerequisites and have a functioning setup to build. 
 
 ## Download Petalinux 2020.2 and Vitis 2020.2
 I recommend downloading Petalinux seperate and the webinstaller for Vitis 2020.2. Create a directory under /workspace, e.g. /tools/Xilinx/Petalinux. Petalinux is finished downloading earlier - so start installing that one first. Select all Vitis/Vivado/HLS variants. For chip/board selection, I only selected the MPSOC ultrascale+ boards. I also left in DocNav. Install the y2k22_patch-1.2.zip fix, by unzipping it in the /workspace/tools/Xilinx directory, and running ```python3 '/workspace/tools/Xilinx/y2k22_patch/patch.py'``` in /workspace/tools/Xilinx.
