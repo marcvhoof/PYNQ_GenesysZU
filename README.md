@@ -38,6 +38,14 @@ From this point on, start using the reload command to reboot the machine - when 
 ## Some advice
 I then modified the virtual box, by closing the machine and starting VirtualBox. I changed the display manager to VMSVGA and selected half (4) of my physical cores. Good to know: 1) you can change the screen size and resolution in Ubuntu itself simply by going to Settings, searching for 'Displays'. 2) Enabling 'Shared Clipboard' in Virtualbox is quite convenient for copy/paste across machines, 3) sudo apt-get install gnome-system-monitor helps you conveniently track issues with memory in the VM. 
 
+## Use a swap file for 8GB of RAM
+```
+sudo fallocate -l 8G /swapfile
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+```
+
 ## Download Petalinux 2020.2 and Vitis 2020.2
 I recommend downloading Petalinux seperate and the webinstaller for Vitis 2020.2. Create a directory under /workspace, e.g. /tools/Xilinx/Petalinux. Petalinux is finished downloading earlier - so start installing that one first. Install Vitis. I only selected the MPSOC ultrascale+ boards. I also left in DocNav. Install the y2k22_patch-1.2.zip fix, by unzipping it in the /workspace/tools/Xilinx directory, and running "python3 '/workspace/tools/Xilinx/y2k22_patch/patch.py'" in /workspace/tools/Xilinx.
 
