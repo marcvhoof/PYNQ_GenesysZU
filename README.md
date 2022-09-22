@@ -74,11 +74,21 @@ wget -P /workspace/PYNQ_GenesysZU/sdbuild/build/gcc-mb/.build/tarballs/ https://
 wget -P /workspace/PYNQ_GenesysZU/sdbuild/build/gcc-mb/.build/tarballs/ https://github.com/libexpat/libexpat/releases/download/R_2_4_1/expat-2.4.1.tar.bz2
 ```
 ## Add the board files to Vivado and Vitis
-To write.
+Place the board files (e.g. https://github.com/Digilent/vivado-boards/tree/master/new/board_files) of the board(s) you want to build for in
+/workspace/tools/Xilinx/Vivado/2020.2/data/boards/board_files
+/workspace/tools/Xilinx/Vitis/2020.2/data/boards/board_files
 
 ## Start making
+For the boards files within this repository:
 ```
 make
+```
+For the PYNQ adapted to the Genesys Zu 3EG board
+```
+cd workspace
+clone https://github.com/marcvhoof/PYNQ-GZU
+cd PYNQ_GenesysZU/sdbuild/
+make BOARDDIR=/workspace/PYNQ-GZU
 ```
 Once it fails due to download errors because of the broken tar links, just clean the ' gcc-mb' manually by deleting all other files and directories under 'PYNQ_GenesysZU/sdbuild/build/gcc-mb' until only the '.build' directory is left over and restart make. Note that .build is hidden, so enable showing hidden files.  
 
