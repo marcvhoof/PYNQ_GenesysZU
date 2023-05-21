@@ -14,7 +14,6 @@ elif [ $(lsb_release -rs) == "20.04" ]; then
     rel_deps="libncurses6 lib32ncurses6"
 else
     echo "Error: Please use Ubuntu 20.04 or Ubuntu 18.04."
-    exit 1
 fi
 
 read -d '' PACKAGES <<EOT
@@ -60,7 +59,7 @@ python3-pip
 gcc-multilib
 xterm
 net-tools
-libidn11
+libidn12
 ninja-build
 python3-testresources
 ${rel_deps}

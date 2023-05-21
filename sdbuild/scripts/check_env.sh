@@ -6,7 +6,6 @@ elif [ $(lsb_release -rs) == "20.04" ]; then
     rel_deps="libncurses6 lib32ncurses6"
 else
     echo "Error: Please use Ubuntu 20.04 or Ubuntu 18.04."
-    exit 1
 fi
 
 # Check for dependencies 
@@ -41,7 +40,7 @@ libsdl1.2-dev
 rsync
 python3-pip
 gcc-multilib
-libidn11
+libidn12
 curl
 ${rel_deps}
 EOT
